@@ -1,0 +1,17 @@
+{
+  "name": "vouch",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "setup": "npm install --prefix contracts && npm install --prefix server && npm install --prefix client && node scripts/setup.js",
+    "chain": "npm run node --prefix contracts",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "test": "npm test --prefix contracts && npm test --prefix server",
+    "dev": "concurrently -k -n chain,api,web -c blue,green,magenta \"npm run chain\" \"wait-on tcp:127.0.0.1:8545 && npm run deploy:local --prefix contracts && npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "wait-on": "^8.0.1"
+  }
+}

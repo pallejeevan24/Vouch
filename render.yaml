@@ -1,0 +1,17 @@
+# Render.com blueprint for the API. Create the database separately (MongoDB Atlas free tier) and paste its URI.
+services:
+  - type: web
+    name: vouch-api
+    runtime: docker
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: ./server
+    healthCheckPath: /api/health
+    envVars:
+      - { key: MONGO_URI, sync: false }
+      - { key: JWT_SECRET, generateValue: true }
+      - { key: CLIENT_URL, sync: false }        # your frontend's https URL
+      - { key: RPC_URL, sync: false }
+      - { key: PUBLIC_RPC_URL, sync: false }
+      - { key: PRIVATE_KEY, sync: false }
+      - { key: CONTRACT_ADDRESS, sync: false }
+      - { key: EXPLORER_TX_URL, value: "https://amoy.polygonscan.com/tx/" }
